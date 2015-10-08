@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{802b:wiki}
+Wikipedia.~The free encylopedia.
+\newblock Ieee 802.11b-1999.
+\newblock \url{https://en.wikipedia.org/wiki/IEEE_802.11b-1999}, 2015.
+
 \bibitem{iwconfig:man}
 Linux Manual.
 \newblock iwconfig - linux man page.
