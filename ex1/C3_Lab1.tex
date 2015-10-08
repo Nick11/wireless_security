@@ -8,7 +8,7 @@
 \end{abstract}
 \section{Introduction}
 - summary of standard
-- 
+- back-off time
 
 \section{Materials and Methods}
 - pcs with arch linux
@@ -73,6 +73,7 @@ The observed results are gathered in \autoref{table_4_2_2}.
 Our hypothesis turned out to be correct.
 Changing the positions antennas by one meter did not have any observable influence. If \emph{Node 1} was further away from the \emph{local AP} than \emph{Node 2}, both still got the same chance for using the medium because of waiting for the back-off time before sending introduces some randomness. The back-off time is much larger than the propagation delay resulting from the larger distance.
 
+The total throughput was supposed to be 11MiB but we measured 7MiB. This is due to protocol overhead and obstacles, reflections and other environmental effects.
 	\begin{table}
 	\begin{center}
 		\begin{tabular}{r|r|r|r}\
@@ -124,8 +125,37 @@ When we reduced the transmission rate of all tree nodes, the result was the same
 \emph{Node 1} used a modified driver that set the back-off time to zero.
 
 \paragraph{Hypothesis}
-	
+\emph{Node 1 will get the whole bandwidth (up- and downstream) and the other nodes non.}
 
+\paragraph{Observation}
+The observed results are gathered in \autoref{table_4_2_4}.
+Our hypothesis turned out to be partially correct.
+\emph{Node 1} got a very high outgoing throughput, but almost no incoming.
+The other nodes got neither incoming nor outgoing throughput.
+Since \emph{Node 1} allocated the medium without waiting for the back-off time, it was always the first to send not leaving any time slots for the other two nodes and the \emph{local AP}. For that reason \emph{Node 1} did not get any data from the \emph{local AP} and thus no incoming traffic.
+This scheme is not fair anymore and moving the antennas did not change anything.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{r|r|r|r}\
+		 & total & incoming & outgoing \\
+		 \hline 
+		 \emph{Node 1} & 7000 & $~$0 & 7000 \\
+		 \emph{Node 2} & ~0 & ~0 & ~0 \\
+		 \emph{Node 3} & 7000 & 7000 & ~0 \\
+		\end{tabular}
+		\label{table_4_2_4}
+		\caption{Results of measurement form Task 4.2.4. Units are KiB/s.}
+		
+	\end{center}
+	\end{table}
+
+\paragraph{Let's cheat all together}
+When all the nodes used the modified driver without back-off time, the resulting throughput turned out to be unpredictable. Sometimes a node was sending at full speed and then not sending at all. The \emph{local AP} did not send at all, since it used the back-off time.
+
+Since none of the nodes was waiting before sending, a lot of collisions have happened, but we could not measure them.
+
+Even when moving the antennas, we were not able to find any observable change since it was still mostly random.
 \section{Analysis}
 \bibliographystyle{plain}
 \bibliography{bibliography}
