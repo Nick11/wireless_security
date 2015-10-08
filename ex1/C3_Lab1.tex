@@ -1,0 +1,132 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{hyperref}
+\title{Report Lab 1 Group C3}
+\author{Niclas Scheuing and Vasileios Dimitrakis}
+\begin{document}
+\maketitle
+\begin{abstract}
+\end{abstract}
+\section{Introduction}
+- summary of standard
+- 
+
+\section{Materials and Methods}
+- pcs with arch linux
+- wifi adapter
+- iwconfig/ifconfig
+- iperf
+- wireshark
+
+Node 1
+Node 2
+Node 3
+global AP
+local AP
+
+\section{Results}
+In the following we provide the results of the conducted simulations.
+\subsection{Task 4.1.10 Q/A}
+
+\paragraph{What are all the different modes that iwconfig offers and what do they do?}
+Taken from iwconfig manual\cite{iwconfig:man}.
+\begin{itemize}
+	\item \emph{Ad-Hoc}
+		Used for networks composed of multiple nodes without access point (AP).
+	\item \emph{Managed}
+		Used for nodes connection to an AP in an environment that is using multiple APs.
+	\item \emph{Master}
+		Acting as AP.
+	\item \emph{Repeater}
+		Node forwards packets.
+	\item \emph{Secondary}
+		Acts as backup master or repeater.
+	\item \emph{Monitor}
+		Node is passive (not sending) and captures all packets received on the frequency used.
+	\item \emph{Auto}
+		Magic!
+\end{itemize}
+
+
+\paragraph{Why did we set the channel in monitor mode?}
+We need to select a specific channel (frequency range) that we want to observe since observing all channels is not possible or desired.
+
+\paragraph{What's the difference when capturing in promiscuous mode and non-promiscuous mode?}
+According to the wireshark manual page\cite{wireshark:man}:
+\begin{itemize}
+	\item In promiscuous mode the MAC address filter is disabled and al packets of the currently joined 802.11 b network are captured.
+
+	\item In non-promiscuous mode we see the traffic that this node is intended to receive only.
+
+\end{itemize}
+
+\subsection{Task 4.2.1 Wireless ipserf server}\label{task421}
+Running the bandwidth benchmark on \emph{Node 1} and \emph{Node 2 }using \emph{global AP} as server in managed mode, resulted in both nodes getting almost the same throughput of $~800$KiB/s for the outgoing and incoming traffic. This was observed using \emph{iptraf}.
+This implies a fair bandwidth sharing scheme.
+
+\subsection{Task 4.2.2 Different Channels}\label{task422}
+\emph{Node 1-3} performed the \emph{iperf} benchmark using the \emph{local AP} as AP and server and running in managed mode.
+\paragraph{Hypothesis}
+\textit{We expected an equal distribution of the available bandwidth among all three nodes. Since only three nodes are competing for the bandwidth and not the whole class (12 nodes) as in \autoref{task421} the throughput for each node is expected to be higher.}
+
+\paragraph{Observations}
+The observed results are gathered in \autoref{table_4_2_2}.
+Our hypothesis turned out to be correct.
+Changing the positions antennas by one meter did not have any observable influence. If \emph{Node 1} was further away from the \emph{local AP} than \emph{Node 2}, both still got the same chance for using the medium because of waiting for the back-off time before sending introduces some randomness. The back-off time is much larger than the propagation delay resulting from the larger distance.
+
+	\begin{table}
+	\begin{center}
+		\begin{tabular}{r|r|r|r}\
+		 & total & incoming & outgoing \\
+		 \hline 
+		 \emph{Node 1} & 2500 & 1000 & 1500 \\
+		 \emph{Node 2} & 2500 & 900 & 1500 \\
+		 \emph{Node 3} & 2100 & 1000 & 1200 \\
+		 \emph{local AP} & 7000 & 4400& 2300\\
+		\end{tabular}
+		\label{table_4_2_2}
+		\caption{Results of measurement form Task 4.2.2. Units are KiB/s.}
+		
+	\end{center}
+	\end{table}
+
+
+\subsection{Task 4.2.3 Rate Changing}
+The transmission rate of \emph{Node 1} was set to $1$MiB while the other two nodes used $11$MiB and the same benchmark was executed.
+
+\paragraph{Hypothesis}
+\emph{We assumed \emph{Node 1} would be slower and \emph{Node 2} and \emph{3} faster than before in \autoref{task422} because the \emph{Node 1} would free some bandwidth.}
+
+\paragraph{Observation}
+The observed results are gathered in \autoref{table_4_2_3}.
+Our hypothesis turned out to be incorrect.
+All nodes were transmitting at the same slower speed if \emph{Node 1} was sending.
+If \emph{Node 1} was not sending \emph{Node 2} and \emph{3} were transmitting at full speed.
+This due to the fact that the \emph{Node 1} needed more time for sending the same amount of data and thus allocated the medium for a longer period of time, slowing down the other two nodes as well.
+
+When we reduced the transmission rate of all tree nodes, the result was the same as when the slower \emph{Node 1} was sending in the previous setup.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{r|r|r|r}\
+		 & total & incoming & outgoing \\
+		 \hline 
+		 \emph{Node 1} & 900 & 300 & 600 \\
+		 \emph{Node 2} & 900 & 400 & 500 \\
+		 \emph{Node 3} & 900 & 400 & 500 \\
+		\end{tabular}
+		\label{table_4_2_3}
+		\caption{Results of measurement form Task 4.2.3. Units are KiB/s.}
+		
+	\end{center}
+	\end{table}
+
+\subsection{Task 4.2.4 Selfish Back-off}
+\emph{Node 1} used a modified driver that set the back-off time to zero.
+
+\paragraph{Hypothesis}
+	
+
+\section{Analysis}
+\bibliographystyle{plain}
+\bibliography{bibliography}
+\end{document}

@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+
+\bibitem{iwconfig:man}
+Linux Manual.
+\newblock iwconfig - linux man page.
+\newblock \url{http://linux.die.net/man/8/iwconfig}, 2015.
+
+\bibitem{wireshark:man}
+The~Wireshark team.
+\newblock Wireshark manual.
+\newblock \url{http://wiki.wireshark.org/CaptureSetup/wlan}, 2015.
+
+\end{thebibliography}
