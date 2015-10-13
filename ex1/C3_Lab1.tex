@@ -7,10 +7,10 @@
 \section{Introduction}
 This lab is about studying the throughput using a 802.11b Wifi network and different data rates, back-off policies or number of nodes.
 The IEEE 802.11\cite{802b:wiki} was originally defined in 1999 and uses DSSS on the license-free 2.4GHz band and offers 14 sub-bands of 5MHz called \emph{channels}. The theoretical throughput is 11MiB and CSMA/CA is used. The RTS/CTS scheme for avoiding the \emph{hidden terminal} is not used in this lab but a random back-off time.
-This back-off time is a random time interval, bounded by the contention window size, a node has to wait between sensing that the channel is idle and starting its transmission. If during this back-off time another transmission takes place, the remaining back-off time is freezed until this transmission is over and the \emph{ACK} has been sent. When the node has waited for the full back-off time, it starts transmitting. In case a collision takes place the node waits for the \emph{ACK-timeout} and gets a new back-off time with a increased contention window size.
+This back-off time is a random time interval, bounded by the contention window size, a node has to wait between sensing that the channel is idle and starting its transmission. If during this back-off time another transmission takes place, the remaining back-off time is freezed until this transmission is over and the \emph{ACK} has been sent. When the node has waited for the full back-off time, it starts transmitting. In case a collision takes place the node waits for the \emph{ACK-timeout} and gets a new back-off time with an increased contention window size.
 
 \section{Materials and Methods}
-Each student worked on PC equipped with a WiFi adapter and running a Arch Linux environment.
+Each student worked on PC equipped with a WiFi adapter and running an Arch Linux environment.
 For task 4.2.1 we were working in pairs and for the other tasks in groups of four.
 The following tools were used:
 \begin{itemize}
@@ -55,7 +55,7 @@ We need to select a specific channel (frequency range) that we want to observe s
 \paragraph{What's the difference when capturing in promiscuous mode and non-promiscuous mode?}
 According to the wireshark manual page\cite{wireshark:man}:
 \begin{itemize}
-	\item In promiscuous mode the MAC address filter is disabled and al packets of the currently joined 802.11 b network are captured.
+	\item In promiscuous mode the MAC address filter is disabled and all packets of the currently joined 802.11 b network are captured.
 
 	\item In non-promiscuous mode we see the traffic that this node is intended to receive only.
 
@@ -144,7 +144,7 @@ This scheme is not fair anymore and moving the antennas did not change anything.
 		 \hline 
 		 \emph{Node 1} & 7000 & $\sim0$ & 7000 \\
 		 \emph{Node 2} & $\sim0$ & $\sim0$ & $\sim0$ \\
-		 \emph{Node 3} & 7000 & 7000 & $\sim0$ \\
+		 \emph{Node 3} & $\sim0$ & $\sim0$ & $\sim0$ \\
 		\end{tabular}
 		
 		\caption{Results of measurement form Task 4.2.4. Units are KiB/s.}
