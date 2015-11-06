@@ -1,3 +1,14 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{aircrack}
+Aircrack-ng.
+\newblock Aircrack-ng reference manual.
+\newblock \url{http://www.aircrack-ng.org}, 2015.
+
+\bibitem{wep}
+Techwriters Future.
+\newblock Wep - wired equivalent privacy.
+\newblock \url{http://ipv6.com/articles/wireless/Wired-Equivalent-Privacy.htm},
+  2015.
 
 \end{thebibliography}
