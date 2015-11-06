@@ -31,6 +31,7 @@ The cantenna, as it was described in the introduction, is a directional waveguid
 As we described in the introductory part of the cantenna theory, the cantenna has to trigger only the dominant mode TE\textsubscript{11}, which has the lowest cutoff frequency. For frequencies lower than the previous one, no mode is triggered, because waves are attenuated exponentially. The second mode is the TM\textsubscript{10} and if the frequency is greater than the one of TM\textsubscript{10}, both the two first modes will be excited. Considering all the above, we deduce that the Wi-Fi frequency f\textsubscript{Wi-Fi} has to fulfil the following inequality:
 f\textsubscript{TE\textsubscript{11}} $<$ f\textsubscript{Wi-Fi} $<$ f\textsubscript{TM\textsubscript{10}}.
 According to the citation, the formulas for the above two frequencies for the cylindrical waveguide are the following:
+Therefore, according to these theoretical values, the diameter of our cantenna has to be between these limits. Although these are the theoretical values of the diameter, in real cases, it has to be approximately between 8-11cm, so that the antenna will be effective.
 
 \subsubsection{Position of the copper element: Acts as the monopole}
 
@@ -43,6 +44,7 @@ As we described in subsection 2.1.2, the monopole is placed $\frac{1}{2}\times{�
 The length of the can has to be more than $\frac{3}{4}\times{λ\textsubscript{g}}$. The longer the cantenna is the more directional and effective becomes. In our case, the length of the cantenna is $16$cm, so we expect to be directional and effective.
 
 \subsection{Cantenna theoretical and experimental device dimensions} 
+In Table 1, we present the theoretical design parameters of the cantenna and the actual ones of our setup. It is clear from the table that our cantenna satisfies all the design prerequisites and thus, we expect to receive very good results, as far as the antenna gain and the directivity are concerned.
 
 \begin{table}
 	\begin{center}
@@ -54,13 +56,18 @@ The length of the can has to be more than $\frac{3}{4}\times{λ\textsubscript{g}
 		 \emph{Monopole length} & 0 & 0\\
 		 \emph{Length of the can} & 0 & 0\\
 		\end{tabular}
-		
-		\caption{Theoretical and experimental device dimensions.}
-		
 	\end{center}
-	\end{table}
+\end{table}
 
 \section{Results}
+This section is devided in two different subsections: The one is the Gain measurements and the other is the Directionality measurements. 
+
+\subsection{Gain measurements}
+In this phase of our experiment, we will compare the way that the signal strength changes increasing the distance of the AP and the antenna under test (client). This experiment will be executed for three different antennas: an omnidirectional antenna, a professional cantenna and our cantenna. In order to be the measurements accurate, they have to be taken in an open area field. For this reason, we chose the place, that is depicted in the following pictures, in order to avoid enviromental effects, such as reflections by buildings, scattering by moving objects.
+
+\subsection{Directionality measurements}
+The second phase of the experiment evaluates the directionality of each of the above antennas. All the measurements for the three antennas will be taken in $20$m distance from the Access Point. The starting point of the measurements will be considered the one with $0degrees$. Every next measurement will be taken every 20degrees.
+
 \section{Analysis}
 \bibliographystyle{plain}
 \bibliography{bibliography}
