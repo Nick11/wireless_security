@@ -5,7 +5,12 @@
 \author{Vasileios Dimitrakis and Niclas Scheuing}
 \begin{document}
 \maketitle
-
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{images/shark_cut.png}
+	\caption{Cantenna}
+	\label{shark}
+\end{figure}
+\pagebreak
 \section{Introduction}
 The objective of this exercise is the creation and the performance evaluation of a high gain
 and directional Wi-Fi antenna. The effectiveness of the antenna will be evaluated in comparison with an omnidirectional and a professional Wi-Fi antenna. The design that we chose to build is a cantenna. Cantenna is a homemade directional waveguide antenna, made out of an open-ended metal can.
@@ -28,14 +33,23 @@ The cantenna, as it was described in the introduction, is a directional waveguid
 
 \subsection{Cantenna design parameters}
 \subsubsection{Can diameter}
-As we described in the introductory part of the cantenna theory, the cantenna has to trigger only the dominant mode TE\textsubscript{11}, which has the lowest cutoff frequency. For frequencies lower than the previous one, no mode is triggered, because waves are attenuated exponentially. The second mode is the TM\textsubscript{10} and if the frequency is greater than the one of TM\textsubscript{10}, both the two first modes will be excited. Considering all the above, we deduce that the Wi-Fi frequency f\textsubscript{Wi-Fi} has to fulfil the following inequality:
-f\textsubscript{TE\textsubscript{11}} $<$ f\textsubscript{Wi-Fi} $<$ f\textsubscript{TM\textsubscript{10}}.
-According to the citation, the formulas for the above two frequencies for the cylindrical waveguide are the following:
+As we described in the introductory part of the cantenna theory, the cantenna has to trigger only the dominant mode TE\textsubscript{11}, which has the lowest cutoff frequency. For frequencies lower than the previous one, no mode is triggered, because waves are attenuated exponentially. The second mode is the TM\textsubscript{10} and if the frequency is greater than the one of TM\textsubscript{10}, both the two first modes will be excited. Considering all the above, we deduce that the Wi-Fi frequency f\textsubscript{Wi-Fi} has to fulfill the following inequality:
+\begin{equation}
+	f_{TE_{11}} < f_{Wi-Fi} < f_{TM_{10}}
+\end{equation}
+.
+According to the citation\cite{waveguide}, the formulas for the above two frequencies for the cylindrical waveguide are the following:
+\begin{equation}
+	\frac{p_{11} c}{\pi f_{WiFi}} < D < \frac{p_{01}' c}{\pi f_{WiFi}}
+\end{equation}
+%TODO: are the p values correct?
+where $p_{11} = 1.841$ and $p_{01}'= 3.832$ are parameters related to the Bessel function, $c$ the speed of light.
+%TODO: also provide the final values for the equation above
 Therefore, according to these theoretical values, the diameter of our cantenna has to be between these limits. Although these are the theoretical values of the diameter, in real cases, it has to be approximately between 8-11cm, so that the antenna will be effective.
 
 \subsubsection{Position of the copper element: Acts as the monopole}
 
-The electromagnetic wave of the Wi-Fi signal is transmitted through the air and reaches the opening of our cantenna. Inside the can and according to the frequency of the wave, one or more modes are excited. Moreover, the wave inside the can is reflected to the bottom and this results in the creation of a static wave. The wavelength of the wave in the internal of the can is equal to the wavelength of the mode that is triggered. In our case we want to trigger only the dominant mode f\textsubscript{TE\textsubscript{11}}. Moreover, we have to take into consideration the creation of the static wave and decide which is the best position of the monopole, so that the effectiveness of our antenna will be the highest. It is known from the wave theory, that the peak of a static wave is presented in distance $\frac{1}{2}\times{λ\textsubscript{g}}$ from the can bottom. Taking into consideration this wave property, we opened a hole on the can $4.1$cm from the can bottom. 
+The electromagnetic wave of the Wi-Fi signal is transmitted through the air and reaches the opening of our cantenna. Inside the can and according to the frequency of the wave, one or more modes are excited. Moreover, the wave inside the can is reflected to the bottom and this results in the creation of a static wave. The wavelength $\lambda_g$ of the wave in the internal of the can is equal to the wavelength of the mode that is triggered. In our case we want to trigger only the dominant mode f\textsubscript{TE\textsubscript{11}}. Moreover, we have to take into consideration the creation of the static wave and decide which is the best position of the monopole, so that the effectiveness of our antenna will be the highest. It is known from the wave theory, that the peak of a static wave is presented in distance $\frac{\lambda_g}{4}$ from the can bottom. Taking into consideration this wave property, we opened a hole on the can $4.1$cm from the can bottom. 
 
 \subsubsection{Monopole length}
 As we described in subsection 2.1.2, the monopole is placed $\frac{1}{2}\times{λ\textsubscript{g}}$ from the bottom of the can and its orientation is vertical to the internal side of the can. The monopole antenna is a class of radio antenna consisting of a straight rod-shaped conductor, often mounted perpendicularly over some type of conductive surface, called a plane ground. In our case, we decided to built the most common type of the monopole, which is the quarter-wave monopole. It is also called Marconi antenna from the name of its inventor. This monopole is ideal for our configuration, because it is simple and it has the right dimensions, in order to fit inside the cantenna. The length of the monopole, as we said before, is equal to $\frac{1}{4}\times{λ\textsubscript{Wi-Fi}}$. The λ\textsubscript{Wi-Fi} is the wavelength of the signal transmitted in the free space. In the current setup, the wavelength is equal to 12.3cm, so the length of the monopole is approximately 3.1cm.
@@ -49,24 +63,52 @@ In Table 1, we present the theoretical design parameters of the cantenna and the
 \begin{table}
 	\begin{center}
 		\begin{tabular}{r|r|r|r}\
-		 & Theoretical value & Actual Value\\
+		 & Theoretical value in mm& Actual Values in mm\\
 		 \hline 
-		 \emph{Can diameter} & 0 & 0\\
-		 \emph{Monopole position} & 0 & 0\\
-		 \emph{Monopole length} & 0 & 0\\
-		 \emph{Length of the can} & 0 & 0\\
+		 \emph{Can diameter} & 0 & 100.5\\
+		 \emph{Monopole position} & 0 & 44.1 \\
+		 \emph{Monopole length} & 0 & 30.75\\
+		 \emph{Length of the can} & 0 & 162.5\\
 		\end{tabular}
 	\end{center}
 \end{table}
 
+\section{Setup}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{images/marks.JPG}
+		\caption{title}
+		\label{marks}
+	\end{figure}
+	\begin{figure}
+		\includegraphics[angle=270,width=\textwidth]{images/setup.JPG}
+		\caption{title}
+		\label{setup}
+	\end{figure}
+
 \section{Results}
-This section is devided in two different subsections: The one is the Gain measurements and the other is the Directionality measurements. 
+This section is divided in two different subsections: The one is the Gain measurements and the other is the Directionality measurements. 
 
 \subsection{Gain measurements}
-In this phase of our experiment, we will compare the way that the signal strength changes increasing the distance of the AP and the antenna under test (client). This experiment will be executed for three different antennas: an omnidirectional antenna, a professional cantenna and our cantenna. In order to be the measurements accurate, they have to be taken in an open area field. For this reason, we chose the place, that is depicted in the following pictures, in order to avoid enviromental effects, such as reflections by buildings, scattering by moving objects.
+In this phase of our experiment, we will compare the way that the signal strength changes increasing the distance of the AP and the antenna under test (client). This experiment will be executed for three different antennas: an omnidirectional antenna, a professional cantenna and our cantenna. In order to be the measurements accurate, they have to be taken in an open area field. For this reason, we chose the place, that is depicted in the following pictures, in order to avoid environmental effects, such as reflections by buildings, scattering by moving objects.
 
 \subsection{Directionality measurements}
 The second phase of the experiment evaluates the directionality of each of the above antennas. All the measurements for the three antennas will be taken in $20$m distance from the Access Point. The starting point of the measurements will be considered the one with $0degrees$. Every next measurement will be taken every 20degrees.
+
+\subsection{Maximum distance measurements}
+\begin{figure}
+	\includegraphics[width=\textwidth]{images/distance.JPG}
+	\caption{title}
+	\label{distance}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{images/cool.JPG}
+	\caption{title}
+	\label{cool}
+\end{figure}
+
+
+
 
 \section{Analysis}
 \bibliographystyle{plain}
