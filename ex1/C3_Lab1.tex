@@ -5,9 +5,15 @@
 \begin{document}
 \maketitle
 \section{Introduction}
-This lab is about studying the throughput using a 802.11b Wifi network and different data rates, back-off policies or number of nodes.
-The IEEE 802.11\cite{802b:wiki} was originally defined in 1999 and uses DSSS on the license-free 2.4GHz band and offers 14 sub-bands of 5MHz called \emph{channels}. The theoretical throughput is 11MiB and CSMA/CA is used. The RTS/CTS scheme for avoiding the \emph{hidden terminal} is not used in this lab but a random back-off time.
-This back-off time is a random time interval, bounded by the contention window size, a node has to wait between sensing that the channel is idle and starting its transmission. If during this back-off time another transmission takes place, the remaining back-off time is freezed until this transmission is over and the \emph{ACK} has been sent. When the node has waited for the full back-off time, it starts transmitting. In case a collision takes place the node waits for the \emph{ACK-timeout} and gets a new back-off time with an increased contention window size.
+This lab is about studying the throughput using a 802.11b Wi-Fi network and different data rates, back-off policies or number of nodes.
+The IEEE 802.11\cite{802b:wiki} was originally defined in 1999 and uses DSSS on the license-free 2.4GHz band and offers 14 sub-bands of 5MHz called \emph{channels}.
+The MAC layer of this standard provides functions for controlling the radio channel access.
+The DCF (Distributed Coordination Function\cite{wiki:dcf}) is a fundamental MAC technique of IEEE 802.11 and employs a CSMA/CA with binary exponential back-off algorithm.
+
+The theoretical throughput is 11MiB and the CSMA/CA (Carrier Sense Multiple Access/Collision Avoidance) method is used for sharing the wireless medium, as we discussed before.
+The RTS/CTS scheme for avoiding the \emph{hidden terminal problem} is not used in this lab but a random back-off time. This back-off time is a random time interval, bounded by the contention window size, a node has to wait between sensing that the channel is idle and starting its transmission.
+If during this back-off time another transmission takes place, the remaining back-off time is freezed, until this transmission is over and the ACK has been sent.
+When the node has waited for the full back-off time, it starts transmitting. In case a collision takes place the node waits for the \emph{ACK-timeout} and gets a new back-off time with an increased contention window size.
 
 \section{Materials and Methods}
 Each student worked on PC equipped with a WiFi adapter and running an Arch Linux environment.
@@ -26,7 +32,7 @@ The machines serving as wireless nodes are denoted by \emph{Node 1}, \emph{Node 
 The fourth machine used as access point and server is called \emph{local AP} in the following, while the access point used by the whole class is named \emph{global AP}.
 
 \section{Results}
-In the following we provide the results of the conducted simulations.
+In the following, we provide the results of the conducted simulations.
 \subsection{Task 4.1.10 Q/A}
 
 \paragraph{What are all the different modes that iwconfig offers and what do they do?}
@@ -94,7 +100,7 @@ The total throughput was supposed to be 11MiB but we measured 7MiB. This is due 
 
 
 \subsection{Task 4.2.3 Rate Changing}
-The transmission rate of \emph{Node 1} was set to $1$MiB while the other two nodes used $11$MiB and the same benchmark was executed.
+The transmission rate of \emph{Node 1} was set to $1$MiB, while the other two nodes used $11$MiB and the same benchmark was executed.
 
 \paragraph{Hypothesis}
 \emph{We assumed \emph{Node 1} would be slower and \emph{Node 2} and \emph{3} faster than before in \autoref{task422} because the \emph{Node 1} would free some bandwidth.}
@@ -134,7 +140,7 @@ The observed results are gathered in \autoref{table_4_2_4}.
 Our hypothesis turned out to be partially correct.
 \emph{Node 1} got a very high outgoing throughput, but almost no incoming.
 The other nodes got neither incoming nor outgoing throughput.
-Since \emph{Node 1} allocated the medium without waiting for the back-off time, it was always the first to send not leaving any time slots for the other two nodes and the \emph{local AP}. For that reason \emph{Node 1} did not get any data from the \emph{local AP} and thus no incoming traffic.
+Since \emph{Node 1} allocated the medium without waiting for the back-off time, it was always the first to send not leaving any time slots for the other two nodes and the \emph{local AP}. For that reason, \emph{Node 1} did not get any data from the \emph{local AP} and thus no incoming traffic.
 This scheme is not fair anymore and moving the antennas did not change anything.
 
 \begin{table}
@@ -157,7 +163,7 @@ When all the nodes used the modified driver without back-off time, the resulting
 
 Since none of the nodes was waiting before sending, a lot of collisions have happened, but we could not measure them.
 
-Even when moving the antennas, we were not able to find any observable change since it was still mostly random.
+Even when moving the antennas, we were not able to find any observable change, since it was still mostly random.
 \section{Analysis}
 Taking into consideration all the results and the hypothesis that we made, the following main observations of the experiment are to be summarized.
 \begin{itemize}
