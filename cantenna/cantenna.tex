@@ -1,0 +1,67 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\title{Template for Security-of-Wireless-Networks Reports}
+\author{Vasileios Dimitrakis and Niclas Scheuing}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+The objective of this exercise is the creation and the performance evaluation of a high gain
+and directional Wi-Fi antenna. The effectiveness of the antenna will be evaluated in comparison with an omnidirectional and a professional Wi-Fi antenna. The design that we chose to build is a cantenna. Cantenna is a homemade directional waveguide antenna, made out of an open-ended metal can.
+\subsection{Materials}
+The materials and the equipment that were used for the creation and the setup of the antenna are the following: 
+\begin{itemize}
+\item {\emph{$1$ USB Alfa wireless adapter:} Is the client associated with the Access Point.} 
+\item {\emph{$1$ TP-Link wireless adapter:} Is used as the Access Point.}
+\item {\emph{$1$ Pigtail cable:} Is used to connect the cantenna with the USB Alfa wireless adapter.}
+\item {\emph{$1$ female N-connector}}
+\item {\emph{$1$ piece of copper wire:} Is used as the active element, the monopole, that radiates the waves}
+\item {\emph{$1$ cylindrical can:} Plays the role of the Wi-fi antenna.} 
+\end{itemize}
+The cantenna used in this exercise will use the Wi-Fi channel $6$ with central frequency $2.437$GHz and wavelength $12.31$cm.
+
+\section{Theoretical background of the cantenna}
+The cantenna, as it was described in the introduction, is a directional waveguide antenna and in our case, it is also a cylindrical cantenna. This kind of waveguide supports both traverse electric (TE) and traverse magnetic (TM) modes. The traverse modes are a particular electromagnetic field pattern of radiation measured in a plane perpendicular (i.e., transverse) to the propagation direction of the beam. They have a cutoff frequency, below which electromagnetic energy is severely attenuated and above this, the certain mode is excited. An ideal cantenna has only one mode, the dominant one, which is the TE\textsubscript{11}, because our cantenna is a cylindrical waveguide. If the cantenna excites more than one modes, this phenomenon will decrease the effectiveness of the antenna, because the energy of the electromagnetic wave will be spread within different modes. The mode that we do not want to trigger is the TM\textsubscript{10}. In the following, Figure 1 presents a cantenna setup.
+
+
+
+\subsection{Cantenna design parameters}
+\subsubsection{Can diameter}
+As we described in the introductory part of the cantenna theory, the cantenna has to trigger only the dominant mode TE\textsubscript{11}, which has the lowest cutoff frequency. For frequencies lower than the previous one, no mode is triggered, because waves are attenuated exponentially. The second mode is the TM\textsubscript{10} and if the frequency is greater than the one of TM\textsubscript{10}, both the two first modes will be excited. Considering all the above, we deduce that the Wi-Fi frequency f\textsubscript{Wi-Fi} has to fulfil the following inequality:
+f\textsubscript{TE\textsubscript{11}} $<$ f\textsubscript{Wi-Fi} $<$ f\textsubscript{TM\textsubscript{10}}.
+According to the citation, the formulas for the above two frequencies for the cylindrical waveguide are the following:
+
+\subsubsection{Position of the copper element: Acts as the monopole}
+
+The electromagnetic wave of the Wi-Fi signal is transmitted through the air and reaches the opening of our cantenna. Inside the can and according to the frequency of the wave, one or more modes are excited. Moreover, the wave inside the can is reflected to the bottom and this results in the creation of a static wave. The wavelength of the wave in the internal of the can is equal to the wavelength of the mode that is triggered. In our case we want to trigger only the dominant mode f\textsubscript{TE\textsubscript{11}}. Moreover, we have to take into consideration the creation of the static wave and decide which is the best position of the monopole, so that the effectiveness of our antenna will be the highest. It is known from the wave theory, that the peak of a static wave is presented in distance $\frac{1}{2}\times{λ\textsubscript{g}}$ from the can bottom. Taking into consideration this wave property, we opened a hole on the can $4.1$cm from the can bottom. 
+
+\subsubsection{Monopole length}
+As we described in subsection 2.1.2, the monopole is placed $\frac{1}{2}\times{λ\textsubscript{g}}$ from the bottom of the can and its orientation is vertical to the internal side of the can. The monopole antenna is a class of radio antenna consisting of a straight rod-shaped conductor, often mounted perpendicularly over some type of conductive surface, called a plane ground. In our case, we decided to built the most common type of the monopole, which is the quarter-wave monopole. It is also called Marconi antenna from the name of its inventor. This monopole is ideal for our configuration, because it is simple and it has the right dimensions, in order to fit inside the cantenna. The length of the monopole, as we said before, is equal to $\frac{1}{4}\times{λ\textsubscript{Wi-Fi}}$. The λ\textsubscript{Wi-Fi} is the wavelength of the signal transmitted in the free space. In the current setup, the wavelength is equal to 12.3cm, so the length of the monopole is approximately 3.1cm.
+
+\subsubsection{Length of the can}
+The length of the can has to be more than $\frac{3}{4}\times{λ\textsubscript{g}}$. The longer the cantenna is the more directional and effective becomes. In our case, the length of the cantenna is $16$cm, so we expect to be directional and effective.
+
+\subsection{Cantenna theoretical and experimental device dimensions} 
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{r|r|r|r}\
+		 & Theoretical value & Actual Value\\
+		 \hline 
+		 \emph{Can diameter} & 0 & 0\\
+		 \emph{Monopole position} & 0 & 0\\
+		 \emph{Monopole length} & 0 & 0\\
+		 \emph{Length of the can} & 0 & 0\\
+		\end{tabular}
+		
+		\caption{Theoretical and experimental device dimensions.}
+		
+	\end{center}
+	\end{table}
+
+\section{Results}
+\section{Analysis}
+\bibliographystyle{plain}
+\bibliography{bibliography}
+\end{document}
