@@ -1,7 +1,7 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage{hyperref}
 \usepackage{mathtools}
-\title{Template for Security-of-Wireless-Networks Reports}
+\title{Cantenna - Building a very low budget circular waveguide}
 \author{Vasileios Dimitrakis and Niclas Scheuing}
 
 \newcommand{\figurewidth}[0]{.65\textwidth}
@@ -22,8 +22,6 @@
 
 \section{Theoretical background of the cantenna}
 	The cantenna we built is a cylindrical directional waveguide antenna. This kind of waveguide supports both traverse electric (TE) and traverse magnetic (TM) modes. The traverse modes are a particular electromagnetic field pattern of radiation measured in a plane perpendicular (i.e., transverse) to the propagation direction of the beam. They have a cutoff frequency, below which electromagnetic energy is severely attenuated and above this, the certain mode is excited. An ideal cantenna has only one mode, the dominant one, which is the $TE_{11}$, because our cantenna is a cylindrical waveguide. If the cantenna excites more than one modes, the effectiveness of the antenna will decrease, because the energy of the electromagnetic wave will be spread within different modes. The mode that we do not want to trigger is the $TM_{10}$.
-	%TODO: What is this?
-	In the following, Figure 1 presents a cantenna setup.
 	
 	
 	\subsection{Cantenna design parameters}
@@ -31,36 +29,36 @@
 		The cantenna used in this exercise will use the Wi-Fi channel $6$ with central frequency $2.437$GHz and wavelength $12.31$cm.
 		
 		\subsubsection{Can diameter}
-			The cantenna should trigger the dominant mode $TE_{11}$ only. This happens at any frequency higher then the threshold frequency $f_{TE_{11}}$. No other mode is triggered for frequencies below $f_{TE_{11}}$, because waves are attenuated exponentially.
-			The second mode is the $TM_{10}$ and if the frequency is greater than the threshold frequency $f_{TM_{10}}$, both the two first modes will be excited.
+			The cantenna should trigger the dominant mode $TE_{11}$ only. This happens at any frequency higher then the cutoff frequency $f_{c,TE_{11}}$. No other mode is triggered for frequencies below $f_{c,TE_{11}}$, because waves are attenuated exponentially.
+			The second mode is the $TM_{10}$ and if the frequency is greater than the cutoff frequency $f_{c,TM_{10}}$, both the two first modes will be excited.
 			We thus deduce that the Wi-Fi frequency $f_{Wi-Fi}$ has to fulfill the following inequality:
 			\begin{equation}
-				f_{TE_{11}} < f_{Wi-Fi} < f_{TM_{10}}
+				f_{c,TE_{11}} < f_{Wi-Fi} < f_{c,TM_{10}}
 			\end{equation}.
 			
 			The formulas for the above two frequencies for the cylindrical waveguide are the following\cite{waveguide}:
 			\begin{equation}
 				\frac{p_{11} c}{\pi f_{WiFi}} < D < \frac{p_{01}' c}{\pi f_{WiFi}}
 			\end{equation}
-			%TODO: are the p values correct?
-			where $p_{11} = 1.841$ and $p_{01}'= 3.832$ are parameters related to the Bessel function and $c$ the speed of light.
-			%TODO: also provide the final values for the equation above
-			%TODO: Which limits?
-			Therefore the diameter of our cantenna has to be between these limits. 
-			%Although these are the theoretical values of the diameter, in real cases, it has to be approximately between 8-11cm, so that the antenna will be effective.
+			where $p_{11}' = 1.841$ and $p_{01}= 2.405$ are parameters related to the Bessel function and $c$ the speed of light.
+			This yields in
+			\begin{equation}
+				72.18mm < D < 94mm
+			\end{equation}
+			Therefore the diameter of our cantenna has to be between these limits.
 			
 		\subsubsection{Position of the copper element: Acts as the monopole} \label{mono:pos}
 			Not only that certain modes are triggered, when the electro magnetic wave of the Wi-Fi signal reaches the cantenna. The wave inside the can is also reflected by its bottom. This results in the creation of a static wave.
 			The wavelength $\lambda_g$ of the static wave inside of the can is equal to the wavelength of the mode that is triggered. In our case we want to trigger only the dominant mode $TE_{11}$.
 			Placing the monopole, we must take into consideration the frequency of this static wave.
 			The static wave is a sinusoid, so we know its highest amplitude can be found at a distance of $\frac{\lambda_g}{4}$ from the can bottom.
-			Since we know $\lambda = 176.56 mm$ as a property of the $TE_{11}$ mode, we placed the monopole at a distance of $\frac{\lambda_g}{4} = 44.14 mm$ from the can bottom. The monopole is a piece of copper wire placed orthogonally to the can surface pointing inwards.
+			Since we know $\lambda_g = 176.56 mm$ as a property of the $TE_{11}$ mode\cite{can:lambdag}, we placed the monopole at a distance of $\frac{\lambda_g}{4} = 44.14 mm$ from the can bottom. The monopole is a piece of copper wire placed orthogonally to the can surface pointing inwards.
 		
 		\subsubsection{Monopole length}
 			The monopole antenna is a class of radio antenna consisting of a straight rod-shaped conductor, often mounted perpendicularly over some type of conductive surface, called a plane ground. In our case, we decided to built the most common type of the monopole, which is the quarter-wave monopole. It is also called \emph{Marconi antenna}. This monopole is ideal for our configuration, because it is simple and it has the right dimensions, in order to fit inside the cantenna. The length of the monopole is equal to $\frac{1}{\lambda_{Wi-Fi}}$. Where  $\lambda_{Wi-Fi}$ is the wavelength of the Wi-Fi signal. In the current setup $\lambda_{Wi-Fi} = 123mm$, so the length of the monopole is $30.75mm$.
 		
 		\subsubsection{Length of the can}
-			The length of the can has to be more than $\frac{3}{4}\ {\lambda_g}$. The longer the cantenna is the more directional and effective becomes. In our case, the length of the cantenna is $160mm$, so we expect to be directional.
+			The length of the can has to be more than $\frac{3}{4} \lambda_g = 132.42mm$. The longer the cantenna is the more directional and effective becomes. In our case, the length of the cantenna is $160mm$, so we expect to be directional.
 	
 	\subsection{Cantenna theoretical and experimental device dimensions} 
 		In \autoref{can:geom}, we present the theoretical design parameters of the cantenna and the actual ones of our setup. Our cantenna satisfies all the design prerequisites and thus, we expect it to work fairly well regarding antenna gain and directivity.
@@ -70,10 +68,10 @@
 				\begin{tabular}{r|r|r|r}\
 				 & Theoretical value in mm& Actual Values in mm\\
 				 \hline 
-				 \emph{Can diameter} & 0 & 100.5\\
-				 \emph{Monopole position} & 0 & 44.1 \\
-				 \emph{Monopole length} & 0 & 30.75\\
-				 \emph{Length of the can} & 0 & 162.5\\
+				 \emph{Can diameter} & 72.18 to 94 & 100.5\\
+				 \emph{Monopole position} & 44.14 & 44.1 \\
+				 \emph{Monopole length} & 30.75 & 30.75\\
+				 \emph{Length of the can} & >132.42 & 162.5\\
 				\end{tabular}
 			\end{center}
 			\caption{Cantenna geometry. Theoretical and actual values.}
@@ -100,17 +98,17 @@
 			\item \emph{iperf}: Network testing tool for creating data streams and measuring throughput.
 			\item \emph{iptraf}: Monitoring network interface throughput.
 			\item \emph{hostapd}: Is a user space deamon for Access Point and authentication servers.
+			\item \emph{netcat}: Used as a chat channel to communicate over larger distances.
 		\end{itemize}
 	
 	\subsection{Setting up the experiment}
 		\paragraph{Wi-Fi channel}: We used Wi-Fi channel $6$.
-		\paragraph{Distance meassurement} We placed markers on the ground(see \autoref{marks}) at the distances of 1m, 10m, 20m, 40m, 60m, 80m, 100m. To measure the distance we used GPS and counting steps, which resulted in a maximum difference of less than 2m.
+		\paragraph{Distance meassurement} We placed markers on the ground (see \autoref{marks}) at the distances of 1m, 10m, 20m, 40m, 60m, 80m, 100m. To measure the distance we used GPS and counting steps, which resulted in a maximum difference of less than 2m.
 		\begin{figure}
 			\includegraphics[width=\textwidth]{images/marks_cut.png}
 			\caption{Markers placed on the side of the road for the distance measurements.}
 			\label{marks}
 		\end{figure}
-		
 		\paragraph{Cantenna mounting} To keep the antennas stable in position and angle, we mounted them on a microphone stand. See \autoref{setup}
 		\begin{figure}
 			\begin{centering}
@@ -120,22 +118,46 @@
 			\end{centering}
 		\end{figure}
 		\paragraph{Access Point} The access point run on the \ap machine using \emph{hostapd}
+	
+		\subsection{Gain measurements}
+			We observed the way the signal strength changes when increasing the distance between the \ap and the \rc. This experiment was executed for three different antennas: an omnidirectional antenna, a professional cantenna and our cantenna.
+			In order to be the measurements accurate, they were taken in an open area field. We chose the place seen in \autoref{distance} in order to avoid environmental effects, such as reflections by buildings, scattering by moving objects.
+			\begin{figure}
+				\includegraphics[width=\textwidth]{images/distance.JPG}
+				\caption{title}
+				\label{distance}
+			\end{figure}
+		
+		\subsection{Directionality measurements}
+			In the second phase of the experiment measured the directionality of each of the above antennas. All the measurements for the three antennas were taken in $20$m distance from the Access Point. The starting point of the measurements was considered the one with $0^{\circ}$. Every next measurement was taken every $20^{\circ}$.
 
+		\subsection{Maximum distance measurements}
+			To see how far we can transmit using our cantenna, we increased the distance in steps of 20m starting at 100m. To check the connection, we used \emph{netcat} to send messages and \emph{ping}.
+		
 \section{Results}
-	This section is divided in two different subsections: The one is the gain measurements and the other is the directionality measurements. 
-	
+ 
 	\subsection{Gain measurements}
-		In this phase of our experiment, we will compare the way that the signal strength changes increasing the distance of the AP and the antenna under test (client). This experiment will be executed for three different antennas: an omnidirectional antenna, a professional cantenna and our cantenna. In order to be the measurements accurate, they have to be taken in an open area field. For this reason, we chose the place, that is depicted in the following pictures, in order to avoid environmental effects, such as reflections by buildings, scattering by moving objects.
+		
+		The results of the measurements can be found in the Appendix as Tables \autoref{dist:can}, \autoref{dist:prof}, \autoref{dist:omni} and as plots \autoref{img:dist:pow:can}, \autoref{img:dist:pow:prof}, \autoref{img:dist:pow:omni}.
+		
+		%TODO: Comment on the results ("bandwidth behaves like this and that...")
+		%TODO: compare antennas
+		%TODO: discuss anomalies?
+		
 	
+		\begin{figure}
+			\includegraphics[width=\textwidth]{plots/all_power.png}
+			\caption{The decreasing signal power of all three antennas.}
+			\label{all:power}
+		\end{figure}
+
 	\subsection{Directionality measurements}
-		The second phase of the experiment evaluates the directionality of each of the above antennas. All the measurements for the three antennas will be taken in $20$m distance from the Access Point. The starting point of the measurements will be considered the one with $^{\circ}$. Every next measurement will be taken every $20^{\circ}$.
+		%TODO: Comment on the results ("bandwidth behaves like this and that...")
+		%TODO: compare antennas
+		%TODO: discuss anomalies?
 
 	\subsection{Maximum distance measurements}
-		\begin{figure}
-			\includegraphics[width=\textwidth]{images/distance.JPG}
-			\caption{title}
-			\label{distance}
-		\end{figure}
+		%TODO: Comment on the results ("bandwidth behaves like this and that...")
 		
 		\begin{figure}
 			\includegraphics[width=\textwidth]{images/cool.JPG}
@@ -143,10 +165,11 @@
 			\label{cool}
 		\end{figure}
 
-
-
-
-\section{Analysis}
+\section{Conclusion}
+	%TODO: Main observations
+	%TODO: SOme nice blabla
+	
+%TODO: include cool image
 
 \section{References}
 \bibliographystyle{plain}
@@ -155,66 +178,8 @@
 
 \section{Appendix}
 \pagestyle{empty}
-\begin{figure}\begin{center}
-	\includegraphics[width=\figurewidth]{plots/can_p.png}
-	\caption{Our cantenna. Measured signal strength depending on the distance}
-	\label{img:dist:pow:can}
 
-	\includegraphics[width=\figurewidth]{plots/prof_p.png}
-	\caption{Professional cantenna. Measured signal strength depending on the distance}
-	\label{img:dist:pow:prof}
-
-	\includegraphics[width=\figurewidth]{plots/omni_p.png}
-	\caption{Omni-directional cantenna. Measured signal strength depending on the distance}
-	\label{img:dist:pow:omni}
-\end{center}\end{figure}
-
-%distance bandwidth
-\begin{figure}\begin{center}
-	\includegraphics[width=\figurewidth]{plots/can_b.png}
-	\caption{Our cantenna. Measured bandwidth depending on the distance}
-	\label{img:dist:band:can}
-
-	\includegraphics[width=\figurewidth]{plots/prof_b.png}
-	\caption{Professional cantenna. Measured bandwidth depending on the distance}
-	\label{img:dist:band:prof}
-
-
-	\includegraphics[width=\figurewidth]{plots/omni_b.png}
-	\caption{Omni-directional cantenna. Measured 1bandwidth depending on the distance}
-	\label{img:dist:band:omni}
-\end{center}\end{figure}
-
-%angular pow
-\begin{figure}\begin{center}
-	\includegraphics[width=\figurewidth]{plots/polar_can_p.png}
-	\caption{Our cantenna. Measured signal strength depending on the angle}
-	\label{img:ang:pow:can}
-
-	\includegraphics[width=\figurewidth]{plots/polar_prof_p.png}
-	\caption{Professional cantenna. Measured signal strength depending on the angle}
-	\label{img:ang:pow:prof}
-
-	\includegraphics[width=\figurewidth]{plots/polar_omni_p.png}
-	\caption{Omni-directional cantenna. Measured signal strength depending on the angle}
-	\label{img:ang:pow:omni}
-\end{center}\end{figure}
-
-%angular bandwidth
-\begin{figure}\begin{center}
-	\includegraphics[width=\figurewidth]{plots/polar_can_b.png}
-	\caption{Our cantenna. Measured bandwidth depending on the angle}
-	\label{img:ang:band:can}
-
-	\includegraphics[width=\figurewidth]{plots/polar_prof_b.png}
-	\caption{Professional cantenna. Measured bandwidth depending on the angle}
-	\label{img:ang:band:prof}
-
-	\includegraphics[width=\figurewidth]{plots/polar_omni_b.png}
-	\caption{Omni-directional cantenna. Measured bandwidth depending on the angle}
-	\label{img:ang:band:omni}
-\end{center}\end{figure}
-
+\input{plots.tex}
 \input{meassurements.tex}
 
 
