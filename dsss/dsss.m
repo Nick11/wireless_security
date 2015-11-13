@@ -1,0 +1,191 @@
+%====================================================================%
+%     Direct Sequence Spread Spectrum exercise for SOWN lab          %
+% ------------------------------------------------------------------ %
+% Author : Aanjhan Ranganathan (raanjhan@inf.ethz.ch)                %
+%====================================================================%
+clear all;
+close all;
+
+% variables that define system configuration
+length_prn = 200; % length of the pseudorandom code
+
+% Generate appropriate time samples (only for simulation reasons)
+Fs = 10e3; % 10 KHz sampling rate
+t = 0:1/Fs:length_prn;
+t = t(1:end-1);
+
+% shared secret (pseudo random code) between the transmitter and reciever
+PNcode =  randsrc(1,length_prn); % a random sequence is generated
+
+%=====================================================================
+%                       TRANSMITTER
+%=====================================================================
+
+% generate data signal
+% specify your own data signal '-1' for 0 bit and '1' for 1 bit
+% e.g., to send data 10101 the data signal should be [1 -1 1 -1 1]
+% TODO
+data = [1 -1 1 -1 1 -1 1 -1]; % to avoid warnings choose length of data to be a multiple of 5
+length_data = length(data);
+Ndata = round(length(t)/length_data);
+m_t = kron(data,ones(1,Ndata)); % expands the matrix
+
+% uncomment below lines of code to plot the message signal
+% % plot message signal
+% figure;
+% plot(m_t); ylim([-1.25 1.25]); legend('Message signal');
+ 
+
+% generate code signal
+Ncode = round(length(t)/length_prn);
+code_t = kron(PNcode,ones(1,Ncode));
+
+% % plot code signal
+% figure;
+% plot(code_t); ylim([-1.25 1.25]); legend('PR code signal');
+% 
+
+% Spread the data signal by multiplying with the code
+dsss_sig = m_t.*code_t;
+
+% % plot spreaded signal 
+% figure;
+% plot(dsss_sig); ylim([-1.25 1.25]); legend('Spreaded signal');
+% 
+
+% dsss_sig is the spreaded signal. In a real system this is modulated using
+% an appropriate modulation technique (say BPSK) and upmixed to a suitable
+% carrier frequency before transmission. To keep the exercise simple we
+% illustrate all the signals in baseband.
+
+%======================================================================
+%                       CHANNEL
+%======================================================================
+
+% optionally add noise (the radio signals do not travel in atmosphere
+% without the effects of attenuations and noise additions. If so, a lot of
+% us wouldnt be doing what we are doing.
+
+% Hint: you can use Matlab's built-in "awgn" function (help awgn)
+rx = dsss_sig;
+
+%======================================================================
+%                       RECEIVER 
+%======================================================================
+
+% lets try to decode the signal
+rxPNCode =  randsrc(1,length_prn);
+rxPNCode_t = kron(rxPNCode,ones(1,Ncode));
+
+% multiply the received signal "rx" with the pseudorandom code.
+recover_data = rx.*code_t;
+
+% figure;
+% plot(recover_data); ylim([-1.25 1.25]); legend('Recovered data');
+
+
+% All in one (well actually two ;) ) figures.
+% use subplots
+figure;
+subplot(4,1,1);
+plot(m_t); ylim([-1.25 1.25]); 
+legend('Message signal');
+xlabel('Time (samples)');
+ylabel('Amplitude');
+
+subplot(4,1,2);
+plot(code_t); ylim([-1.25 1.25]);
+legend('PR code signal');
+xlabel('Time (samples)');
+ylabel('Amplitude');
+
+subplot(4,1,3);
+plot(dsss_sig); ylim([-1.25 1.25]);
+legend('DSSS signal');
+xlabel('Time (samples)');
+ylabel('Amplitude');
+
+subplot(4,1,4);
+plot(recover_data); ylim([-1.25 1.25]); 
+legend('Recovered data');
+xlabel('Time (samples)');
+ylabel('Amplitude');
+
+saveas(gcf,'time.pdf');
+
+%----------------------------------------------------------------------
+% Now that you have got a fair understanding of how the DSSS coding works, 
+% we will now see the "Actual spreading". For this we modulate the signals
+% using BPSK modulation and upmix them to a carrier frequency Fc.
+% We generate noise signal of energy Enoise.
+
+
+% m_psk is the BPSK modulated message signal (no spreading)
+m_psk = [];
+
+% dsss_psk is the modulated version of the spreaded dsss_sig
+dsss_psk = [];
+
+% carrier frequency which we use 
+Fc = 50;
+
+% generate noise signal with energy Enoise
+Enoise = 100;
+noise_sig = Enoise*rand(length(dsss_sig),1);
+
+%=====================================================================
+% Try to understand. If not, no worries. This is just BPSK modulation code
+% ;)
+tc_sym = t(1:end/length_prn);
+tdata_sym = t(1:end/length_data);
+time = [];
+
+for ii = 1: Ncode: length(dsss_sig)
+    
+    % The BPSK Signal
+    dsss_psk = [dsss_psk (dsss_sig(ii)==-1)*sin(2*pi*Fc*tc_sym)+...
+        (dsss_sig(ii)==1)*sin(2*pi*Fc*tc_sym + pi)];
+        
+    time = [time tc_sym];
+    t =  t + 1;
+   
+end
+
+time = [];
+for ii = 1: Ndata: length(m_t)
+    
+    % The BPSK Signal
+    m_psk = [m_psk (m_t(ii)==-1)*sin(2*pi*Fc*tdata_sym)+...
+        (m_t(ii)==1)*sin(2*pi*Fc*tdata_sym + pi)];
+    time = [time tdata_sym];
+    t =  t + 1;
+   
+end
+%=====================================================================
+% Normspectrum plots the spectral density (the
+% amount of energy present in each frequency band)
+%=====================================================================
+[fmpsk magmbpsk] = normspectrum(m_psk,Fs);
+[fdssspsk magdsssbpsk] = normspectrum(dsss_psk,Fs);
+[fnoise magnoise] = normspectrum(noise_sig,Fs);
+
+figure;
+plot(fmpsk, magmbpsk);
+hold on;
+stem(fdssspsk,magdsssbpsk, 'r');
+stem(fnoise,magnoise, 'k');
+legend('message signal', 'dsss signal', 'noise level');
+xlabel('Frequency (Hz)');
+ylabel('Power spectral density');
+xlim([48,52]);
+ylim([0 1]);
+
+saveas(gcf,'frequency.pdf');
+
+% Finally, try to change the strength of the noise signal (0-100) and the
+% length of the PR-code (dont give values beyond 500! The server might
+% start crying for resources and its bad/sin to hurt servers.) and see the
+% effects on spreading and processing gain.
+
+% have fun
+
