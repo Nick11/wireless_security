@@ -4,9 +4,9 @@
 \title{Cantenna - Building a very low budget circular waveguide}
 \author{Vasileios Dimitrakis and Niclas Scheuing}
 
-\newcommand{\figurewidth}[0]{.65\textwidth}
-\newcommand{\rc}[0]{\emph{Receiver}}
-\newcommand{\ap}[0]{\emph{AP}}
+\newcommand{\figurewidth}[0]{.6\textwidth}
+\newcommand{\rc}[0]{\texttt{Receiver}}
+\newcommand{\ap}[0]{\texttt{AP}}
 
 \begin{document}
 \maketitle
@@ -79,7 +79,7 @@
 		\end{table}
 
 \section{Setup}	
-	
+	In the following section we describe the experiment's setup.
 	\subsection{Terminology}
 		The machine serving as stationary receiver connected to the cantenna is denoted by \rc. It is the one performing all measurements. The machine used as access point is called \ap. It is moved around and sending traffic to the \rc.
 	
@@ -102,6 +102,12 @@
 		\end{itemize}
 	
 	\subsection{Setting up the experiment}
+		\begin{figure}
+			\includegraphics[width=\textwidth]{images/cool.png}
+			\caption{Conducting the experiment in the field.1}
+			\label{cool}
+		\end{figure}
+		
 		\paragraph{Wi-Fi channel}: We used Wi-Fi channel $6$.
 		\paragraph{Distance meassurement} We placed markers on the ground (see \autoref{marks}) at the distances of 1m, 10m, 20m, 40m, 60m, 80m, 100m. To measure the distance we used GPS and counting steps, which resulted in a maximum difference of less than 2m.
 		\begin{figure}
@@ -117,7 +123,7 @@
 				\label{setup}
 			\end{centering}
 		\end{figure}
-		\paragraph{Access Point} The access point run on the \ap machine using \emph{hostapd}
+		\paragraph{Access Point} The access point run on the \ap  machine using \emph{hostapd}
 	
 		\subsection{Gain measurements}
 			We observed the way the signal strength changes when increasing the distance between the \ap and the \rc. This experiment was executed for three different antennas: an omnidirectional antenna, a professional cantenna and our cantenna.
@@ -137,10 +143,19 @@
 			To see how far we can transmit using our cantenna, we increased the distance in steps of 20m starting at 100m. To check the connection, we used \emph{netcat} to send messages and \emph{ping}.
 		
 \section{Results}
- 
+	All results of the measurements can be found in the Appendix in \autoref{appendix}.
 	\subsection{Gain measurements}
 		
-		The results of the measurements can be found in the Appendix as Tables \autoref{dist:can}, \autoref{dist:prof}, \autoref{dist:omni} and as plots \autoref{img:dist:pow:can}, \autoref{img:dist:pow:prof}, \autoref{img:dist:pow:omni}.
+		\paragraph{Signal Strength} The results of the measurements can be found in the Appendix as Tables \autoref{dist:can}, \autoref{dist:prof}, \autoref{dist:omni} and as plots \autoref{img:dist:pow:can}, \autoref{img:dist:pow:prof}, \autoref{img:dist:pow:omni}.
+		
+		In \autoref{all:power} we observe that all antennas mostly behave according to the \emph{Free space loss} model.
+		We observe some anomalies though. We assume that these are due to reflections and scattering on moving objects like cars and static objects as a fence and the road.
+		
+		The antennas behave comparable regarding the measured signal strength. The directional antennas did not clearly outperform the onmi-directional, which is rather surprising. Opposed to the omni-directional antenna, the cantennas were connected to the adapter using a cable which could result in some performance loss.
+		
+		\paragraph{Bandwidth} \autoref{img:dist:band:can} to \autoref{img:dist:band:omni} show the bandwidth measurement. We observe an average bandwidth of roughly 6 Mib/s for our cantenna, 8 Mib/s for the professional cantenna and 5.5 Mib/s for the omni-directional antenna.
+		The cantennas outperform the omni-directional antenna by a factor of up to 1.45. This is not reflected in the signal strength measurements. We could not explicitly identify the cause of this phenomenon.
+		The bandwidth does not decrease with increasing distance. The signal is still strong enough at a distance of 100m to not get a significant error-rate. This changes for higher distances, see \autoref{max:dist}.
 		
 		%TODO: Comment on the results ("bandwidth behaves like this and that...")
 		%TODO: compare antennas
@@ -149,36 +164,42 @@
 	
 		\begin{figure}
 			\includegraphics[width=\textwidth]{plots/all_power.png}
-			\caption{The decreasing signal power of all three antennas.}
+			\caption{The decreasing signal power of all three antennas. Corresponds to \emph{free space loss} model except for some values (e.g. at 20m for the professional cantenna)}
 			\label{all:power}
 		\end{figure}
 
 	\subsection{Directionality measurements}
-		%TODO: Comment on the results ("bandwidth behaves like this and that...")
-		%TODO: compare antennas
-		%TODO: discuss anomalies?
-
-	\subsection{Maximum distance measurements}
-		%TODO: Comment on the results ("bandwidth behaves like this and that...")
+		\paragraph{Signal strength} The results can be found in \autoref{img:ang:pow:can} \autoref{img:ang:pow:omni} and \autoref{ang:can} to \autoref{ang:omni}.
 		
-		\begin{figure}
-			\includegraphics[width=\textwidth]{images/cool.png}
-			\caption{title}
-			\label{cool}
-		\end{figure}
+		To measure the directionality we use two measures. The \emph{half-power beam width}, the angle between the half-power pints of the main lobe.
+		And the \emph{front-to-back ratio}, th ratio of power-gain between the front and the rear of the antenna.
+		
+		
+		For our cantenna the \emph{half-power beam width} is $70^{\circ}$ and the \emph{front-to-back ratio} is $22$dB. For the professional antenna we got a \emph{half-power beam width} of approximately $80^{\circ}$ and a \emph{front-to-back ratio} of $11$dB.
+		The omni-directional has a maximum at $0^{\circ}$ and a minimum at $180^{\circ}$ but for the other angles the gain is almost constant, as expected for a omni-directional antenna.
+		
+		\paragraph{Bandwidth}
+		The result of the bandwidth measurements can be seen in \autoref{img:ang:band:can} to \autoref{img:ang:band:omni} and \autoref{ang:can} to \autoref{ang:omni}.
+		The bandwidth and the signal strength do not correlate for the directional antennas. The maximum can be found at around $240^{\circ}$ and not at $0^{\circ}$ where we expected it. We assume this is due to our hasty measurement methodology because we can not come up with any other explanation.
+		
+		
+	\subsection{Maximum distance measurements}\label{max:dist}
+		Using our cantenna we could go up to 250m before losing the connection.
+		The signal strength decreased drastically at a distance of 240m (-70dBm)while the bandwidth was stable up to 140m (4.5Mib/s) and decreased to 800Kib/s at 250m where we lost the connection.
+				
 
 \section{Conclusion}
-	%TODO: Main observations
-	%TODO: SOme nice blabla
+	We achieved to build high-gain directional antenna that provides a \emph{higher bandwidth} than the omni-directional antenna.
+	Regarding their \emph{signal strength} all three antennas perform similarly. This is rather 
+	Even though we measured outdoors, we observed some \emph{anomalies} due to environmental effects and measurement errors.
+	The maximum distance of 250m we could reach, implies a potential benefit for real life applications.
 	
-%TODO: include cool image
-
 \section{References}
 \bibliographystyle{plain}
 \bibliography{bibliography}
 
 
-\section{Appendix}
+\section{Appendix} \label{appendix}
 \pagestyle{empty}
 
 \input{plots.tex}
