@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{power}
+R.A. Dillard.
+\newblock Detectability of spread-spectrum signals.
+\newblock {\em Aerospace and Electronic Systems, IEEE Transactions on},
+  AES-15(4):526--537, July 1979.
+
+\bibitem{wiki:dsss}
+Wikipedia.
+\newblock Direct-sequence spread spectrum.
+\newblock \url{http://en.wikipedia.org/wiki/Direct-sequence_spread_spectrum},
+  2015.
+
+\end{thebibliography}
