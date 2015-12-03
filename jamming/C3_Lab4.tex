@@ -47,7 +47,7 @@ In the current lab exercise we examine the following topology and we use the app
 		
 	
 	\subsubsection{Monitoring Team}
-		The other USRP is used to observe the signals. Its \emph{GNURadio} configuration does nothing but monitoring and can be seen in \autoref{topo:mon}
+		The other USRP was used to observe the signals. Its \emph{GNURadio} configuration does nothing but monitoring and can be seen in \autoref{topo:mon}
 		
 		\begin{figure}
 			\includegraphics[width=\textwidth]{images/model_mon.png}
@@ -59,7 +59,7 @@ In the current lab exercise we examine the following topology and we use the app
 		The center frequencies of channels 1, 6 and 11 are $2.412 GHz$, $2.437 GHz$ and $2.462 GHz$, respectively. Every 802.11 Wi-Fi channel has bandwidth equal to $22 MHz$. In this lab exercise, we used for communication the Wi-Fi channels 1, 6 and 11, because they are the only non-overlapping channels and we avoid interference between the experiments of the lab teams.
 
 \section{Experiment}
-The Attacking team aims at the interruption of the communication between the client and the Access Point. The characteristics of the jamming signal are configured by the GNU radio software tool and it is transmitted through the USRD2 Software Defined Radio. 
+The Attacking team aimed at the interruption of the communication between the client and the Access Point. The characteristics of the jamming signal were1 configured by the GNU radio software tool and it is transmitted through the USRP Software Defined Radio. 
 
 \subsection{Jamming with 1kHz bandwidth}
 
@@ -68,16 +68,16 @@ The Attacking team aims at the interruption of the communication between the cli
 		The bandwidth of the jamming signal in this case is $1kHz$, which is a very narrow signal. Therefore, we expect that this jamming attack will not significantly affect the transmitting signal and it will not interrupt the communication between the client and the Access Point, which communicate through the ping messages.
 	\end{hypo}
 
-	After starting the jamming signal, we can observe that its bandwidth is equal to $1kHz$. Refer to \autoref{1khz:attacker}
+	After starting the jamming signal, we observed that its bandwidth was equal to $1kHz$. Refer to \autoref{1khz:attacker}
 	\begin{figure}
 		\includegraphics[width=\textwidth]{images/attack_1kHz.png}
 		\caption{Jamming signal with 1kHz bandwidth from the \emph{Attacking device}.}
 		\label{1khz:attacker}
 	\end{figure}
 	
-	 Moreover, the ICMP messages of the ping command are not interrupted and we can deduce that the certain jamming attack was not effective.
+	 Moreover, the ICMP messages of the ping command were not interrupted and we could deduce that the certain jamming attack was not effective.
 
-	The bandwidth of the Jamming signal is $1 kHz$ and it is much lower than the one of the channel. The ratio between both signal bandwidths is $\frac{Jamming Signal Bandwidth}{Channel Bandwidth} = \frac{1}{22000} = 0.00005$. This major difference in bandwidth makes this jamming attack ineffective. Refer to \autoref{1k:jam}.
+	The bandwidth of the Jamming signal was $1 kHz$ and thus much lower than the one of the channel. The ratio between both signal bandwidths is $\frac{Jamming Signal Bandwidth}{Channel Bandwidth} = \frac{1}{22000} = 0.00005$. This major difference in bandwidth makes this jamming attack ineffective. Refer to \autoref{1k:jam}.
 	\begin{figure}
 %		\subfloat{
 		\includegraphics[width=\textwidth]{images/mon_1k_ping.png}
@@ -97,20 +97,22 @@ The Attacking team aims at the interruption of the communication between the cli
 		In this second attempt, we can hypothesize that the jamming attack will be effective , as we increased the bandwidth.
 	\end{hypo} 
 
-	After starting the jamming signal (\autoref{100k:attack}), we observe that the ping command is interrupted, as the client receives messages: "Host unreachable".
+	After starting the jamming signal (\autoref{100k:attack}), we observed that the ping command was interrupted, as the client received messages: "Host unreachable".
 	\begin{figure}
 		\includegraphics[width=\textwidth]{images/attack_100kHz.png}
 		\caption{Jamming signal with 100kHz bandwidth observed on the \emph{Attacking device}}
 		\label{100k:attack}
 	\end{figure}
+	
 	One interesting point in this case is that with very limited jamming bandwidth (100 kHz), we managed to interrupt the communication in a Wi-Fi channel, that has 22 MHz bandwidth. See \autoref{100k:attack}.
+	
 	\begin{figure}
 		\includegraphics[width=\textwidth]{images/mon_100k.png}
 		\caption{Ping and jamming signal with 100kHz bandwidth observed on the \emph{Monitoring device}. The peak in the center is the jamming signal.}
 		\label{100k:attack}
 	\end{figure}
 	
-	This outcome is due to the fact that the 802.11 b standard uses very short, 11bit, pseudorandom code length for the DSSS modulation. This means the signal is only spread a little, resulting in a narrow bandwidth and thus being more prone to jamming.
+	This outcome is due to the fact that the \texttt{802.11 b} standard uses very short, 11bit, pseudorandom code length for the DSSS modulation. This means the signal is only spread a little, resulting in a narrow bandwidth and thus being more prone to jamming.
 	Using longer codes could solve this. 
 
 \subsection{Jamming with infinite bandwidth}
